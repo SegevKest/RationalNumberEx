@@ -27,6 +27,88 @@ public class Rational {
 		return _qDenominator;
 	}
 	
+	// Print the Rational Number
+	public String toString() {
+		
+		return _pNumerator +"/"+_qDenominator;
+	}
+	
+	// Check if this rationalNumber is bigger than the param RationalNumber - using 2 private methods
+	public boolean greaterThan(Rational rationalToCompare) {
+		
+		boolean result = false;
+		
+		int leftSide, rightSide;
+		
+		// Calculate the left side and right side of the equation 
+		leftSide = calcLeftSide(this, rationalToCompare);
+		rightSide =  calcRightSide(this, rationalToCompare);
+		
+		// Check the 2 sides - if left is bigger than right
+		result = leftSide > rightSide ? true : false;
+		
+		return result;
+		
+	}
+	
+	// checks if the 2 rational numbers are equal in value - using 2 private methods
+	public boolean equals(Rational rationalToCompare) {
+		
+		boolean result = false;
+		
+		int leftSide, rightSide;
+		
+		// Calculate the left side and right side of the equation 
+		leftSide = calcLeftSide(this, rationalToCompare);
+		rightSide =  calcRightSide(this, rationalToCompare);
+		
+		// Check the 2 sides - if left is bigger than right
+		result = leftSide == rightSide ? true : false;
+		
+		return result;
+	}
+	
+	//Calculate the Addition of the 2 Rational numbers
+	public Rational plus(Rational rationalToAdd) {
+		
+		return calcPlusOrMinus('+', this, rationalToAdd);
+	}
+	
+	// Calculate the substraction of the 2 Rational Numbers
+	public Rational minus(Rational rationalToSubstract) {
+		
+		return calcPlusOrMinus('-', this, rationalToSubstract);
+	}
+
+	// Calculate the multiplication of 2 Rational Numbers
+	public Rational multiply(Rational rationalToMult) {
+	
+		Rational result;
+		int newNumerator, newDenominator;
+		
+		newNumerator = _pNumerator * rationalToMult._pNumerator;
+		newDenominator = _qDenominator * rationalToMult._qDenominator;
+		
+		result = new Rational(newNumerator, newDenominator);
+		
+		return result;
+	}
+
+	//Open
+	// Calculate the devision of 2 Rational Numbers
+	public Rational divide(Rational rationalToDiv) {
+		
+		Rational result;
+		int newNumerator, newDenominator;
+		
+		newNumerator = calcLeftSide(this, rationalToDiv);
+		newDenominator = calcRightSide(this, rationalToDiv);
+			
+		result = new Rational(newNumerator, newDenominator);
+		
+		return result;
+	}
+	
 	
 	// Calcaulte the left side - when comparing 2 rational numbers
 	private int calcLeftSide(Rational rat1, Rational rat2) {
@@ -77,65 +159,6 @@ public class Rational {
 	}
 	
 	
-	// Check if this rationalNumber is bigger than the param RationalNumber - using 2 private methods
-	public boolean greaterThan(Rational rationalToCompare) {
-		
-		boolean result = false;
-		
-		int leftSide, rightSide;
-		
-		// Calculate the left side and right side of the equation 
-		leftSide = calcLeftSide(this, rationalToCompare);
-		rightSide =  calcRightSide(this, rationalToCompare);
-		
-		// Check the 2 sides - if left is bigger than right
-		result = leftSide > rightSide ? true : false;
-		
-		return result;
-		
-	}
-	
-	// checks if the 2 rational numbers are equal in value - using 2 private methods
-	public boolean equals(Rational rationalToCompare) {
-		
-		boolean result = false;
-		
-		int leftSide, rightSide;
-		
-		// Calculate the left side and right side of the equation 
-		leftSide = calcLeftSide(this, rationalToCompare);
-		rightSide =  calcRightSide(this, rationalToCompare);
-		
-		// Check the 2 sides - if left is bigger than right
-		result = leftSide == rightSide ? true : false;
-		
-		return result;
-	}
-	
-	//Calculate the Addition of the 2 Rational numbers
-	public Rational plus(Rational rationalToAdd) {
-		
-		return calcPlusOrMinus('+', this, rationalToAdd);
-	}
-	
-	// Calculate the substraction of the 2 Rational Numbers
-	public Rational minus(Rational rationalToSubstract) {
-		
-		return calcPlusOrMinus('-', this, rationalToSubstract);
-	}
 
 	
-	// Calculate the multiplication of 2 Rational Numbers
-	public Rational multiply(Rational rationalToMult) {
-	
-		Rational result;
-		int newNumerator, newDenominator;
-		
-		newNumerator = _pNumerator * rationalToMult._pNumerator;
-		newDenominator = _qDenominator * rationalToMult._qDenominator;
-		
-		result = new Rational(newNumerator, newDenominator);
-		
-		return result;
-	}
 }
