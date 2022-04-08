@@ -1,3 +1,6 @@
+import java.util.Scanner;  // Import the Scanner class
+
+
 // This class represent the Rational Number class
 // with all its methods as required in the Exercise
 public class Rational {
@@ -52,15 +55,18 @@ public class Rational {
 	}
 	
 	// checks if the 2 rational numbers are equal in value - using 2 private methods
-	public boolean equals(Rational rationalToCompare) {
+	public boolean equals(Object obj) {
 		
 		boolean result = false;
 		
 		int leftSide, rightSide;
 		
+		if (obj == null || !(obj instanceof Rational))
+			return false;
+		
 		// Calculate the left side and right side of the equation 
-		leftSide = calcLeftSide(this, rationalToCompare);
-		rightSide =  calcRightSide(this, rationalToCompare);
+		leftSide = calcLeftSide(this, (Rational)obj);
+		rightSide =  calcRightSide(this, (Rational)obj);
 		
 		// Check the 2 sides - if left is bigger than right
 		result = leftSide == rightSide ? true : false;
@@ -109,6 +115,26 @@ public class Rational {
 		return result;
 	}
 	
+	// Calculate the gcd of the rational and return the new Rational Number after reducing
+	public Rational reduce() {
+		
+		int gcdResult = 0, newNumerator, newDenominator;
+		Rational rationalToReturn = null;
+		
+		if (_pNumerator > _qDenominator)
+			gcdResult = gcdEuclids(_pNumerator, _qDenominator);
+		else
+			gcdResult = gcdEuclids(_qDenominator, _pNumerator);
+
+		
+		newNumerator = _pNumerator / gcdResult;
+		newDenominator = _qDenominator / gcdResult;
+		
+		
+		rationalToReturn = new Rational(newNumerator, newDenominator);
+
+		return rationalToReturn;
+	}
 	
 	// Calcaulte the left side - when comparing 2 rational numbers
 	private int calcLeftSide(Rational rat1, Rational rat2) {
@@ -159,6 +185,14 @@ public class Rational {
 	}
 	
 	
+	// Private method to find the biggest common dividor by the Euclids algorithm
+	private int gcdEuclids(int n1, int n2) {
+		
+		if(n2 == 0) {
+			return n1;
+		}
+		return gcdEuclids(n2, n1 % n2);
+	}
 
 	
 }
